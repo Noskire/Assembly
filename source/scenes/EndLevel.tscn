@@ -1,0 +1,160 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/sound/RoboticVoice.wav" type="AudioStream" id=1]
+[ext_resource path="res://source/scenes/EndLevel.gd" type="Script" id=2]
+[ext_resource path="res://assets/sound/c4.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/ui_theme.tres" type="Theme" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "MoveWindow"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/TRWindow:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 80 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/TRWindow:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 480, 320 ), Vector2( 240, 160 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/TRRobot:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 360, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.6 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/TRWindow:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 80 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/TRWindow:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 240, 160 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/TRRobot:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[node name="EndLevel" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.25098, 0.270588, 0.364706, 1 )
+
+[node name="TRWindow" type="TextureRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 80.0
+margin_right = -240.0
+margin_bottom = -80.0
+expand = true
+stretch_mode = 1
+
+[node name="TRRobot" type="TextureRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 4320.0
+margin_bottom = 2880.0
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_top = -45.0
+margin_right = 124.0
+margin_bottom = -25.0
+theme = ExtResource( 4 )
+text = "Back to Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/MoveWindow = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -6.0
+pitch_scale = 1.05
+bus = "Voice"
+
+[node name="AudioButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[connection signal="button_down" from="CanvasLayer/Button" to="." method="_on_button_down"]

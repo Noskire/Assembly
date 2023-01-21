@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/img/machines.png" type="Texture" id=1]
+[ext_resource path="res://source/machines/CInput.gd" type="Script" id=2]
+
+[node name="CInput" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( 8, 4, 21, 4, 21, 15, 28, 15, 28, 17, 21, 17, 21, 28, 8, 28 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 16, 16 )
+texture = ExtResource( 1 )
+hframes = 4
+frame = 2
